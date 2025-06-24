@@ -1,3 +1,4 @@
+
 import { Search, Settings, MoreHorizontal, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -40,7 +41,7 @@ const Header = () => {
       {/* Trenches 子导航 */}
       <div className="flex items-center justify-between px-4 py-3 bg-gray-900/50">
         <div className="flex items-center space-x-2">
-          <div className="w-5 h-5 bg-white rounded flex items-center justify-center">
+          <div className="w-5 h-5 rounded flex items-center justify-center">
             <img src="/gmgn-logo.svg" alt="GMGN" className="w-3 h-3" />
           </div>
           <span className="text-white font-medium">Trenches</span>
