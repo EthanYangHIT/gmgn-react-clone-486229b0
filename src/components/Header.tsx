@@ -8,7 +8,7 @@ const Header = () => {
       <div className="flex items-center justify-between px-4 py-2 text-sm">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
+            <div className="w-6 h-6 rounded flex items-center justify-center">
               <img src="/gmgn-logo.svg" alt="GMGN" className="w-4 h-4" />
             </div>
             <span className="text-white font-medium">SOL</span>
