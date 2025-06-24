@@ -34,74 +34,49 @@ const TokenCard = ({ token }: TokenCardProps) => {
   };
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-lg p-3 mb-2">
-      {/* 头部信息 */}
-      <div className="flex items-start justify-between mb-2">
-        <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-800 flex items-center justify-center">
-            <span className="text-lg">{token.logo}</span>
+    <div className="bg-black border-t border-gray-800 px-3 py-2 hover:bg-gray-900/50 transition-colors">
+      {/* 主要信息行 */}
+      <div className="flex items-center justify-between">
+        {/* 左侧：logo + 基本信息 */}
+        <div className="flex items-center space-x-2 flex-1 min-w-0">
+          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+            <span className="text-sm font-bold text-black">{token.logo}</span>
           </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-white font-medium">{token.symbol}</span>
-              <span className="text-gray-400 text-xs">{token.name}</span>
-            </div>
-            <div className="flex items-center space-x-2 text-xs text-gray-400">
-              <span>{token.timeAgo}</span>
-              <span className="truncate max-w-20">{token.contractAddress}</span>
-              <Button variant="ghost" size="sm" className="p-0 h-auto">
-                <MoreHorizontal className="w-3 h-3" />
-              </Button>
-            </div>
+          
+          <div className="flex items-center space-x-1 min-w-0">
+            <span className="text-white font-medium text-sm truncate">{token.symbol}</span>
+            <span className="text-gray-500 text-xs">{token.timeAgo}</span>
+            <span className="text-gray-600 text-xs truncate">{token.contractAddress}</span>
           </div>
         </div>
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          className={`p-1 rounded-full ${getRiskColor(token.risk)} bg-gray-800`}
-        >
-          <Zap className="w-3 h-3" />
-        </Button>
-      </div>
 
-      {/* 统计信息 */}
-      <div className="flex items-center justify-between text-xs mb-2">
-        <div className="flex items-center space-x-3">
+        {/* 右侧：统计信息 */}
+        <div className="flex items-center space-x-3 flex-shrink-0">
           <div className="flex items-center space-x-1">
-            <TrendingUp className="w-3 h-3 text-gray-400" />
-            <span className="text-white">{token.holders}</span>
+            <span className="text-white text-xs">👥 {token.holders}</span>
           </div>
+          
           <div className="flex items-center space-x-1">
-            <span className="text-gray-400">💎</span>
-            <span className="text-white">{token.price.toFixed(6)}</span>
+            <span className="text-white text-xs">💰 {token.price.toFixed(6)}</span>
           </div>
+          
           <div className="flex items-center space-x-1">
-            <span className={token.isPositive ? 'text-green-400' : 'text-red-400'}>
-              Tx {Math.abs(token.priceChange)}
-            </span>
+            <span className="text-green-400 text-xs">▲ {token.buyPercentage}%</span>
+            <span className="text-red-400 text-xs">▼ {token.sellPercentage}%</span>
           </div>
-        </div>
-      </div>
-
-      {/* 价格和市值信息 */}
-      <div className="flex items-center justify-between text-xs">
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1">
-            <span className="text-green-400">{token.buyPercentage}%</span>
-            <span className="text-red-400">{token.sellPercentage}%</span>
+          
+          <div className="flex items-center space-x-2 text-gray-400 text-xs">
+            <span>V {token.volume}</span>
+            <span>MC {token.marketCap}</span>
           </div>
-        </div>
-        <div className="flex items-center space-x-2 text-gray-400">
-          <span>V {token.volume}</span>
-          <span>MC {token.marketCap}</span>
         </div>
       </div>
 
       {/* 特殊功能标识 */}
       {token.features && token.features.length > 0 && (
-        <div className="flex items-center space-x-1 mt-2">
+        <div className="flex items-center space-x-1 mt-1 ml-8">
           {token.features.map((feature, index) => (
-            <span key={index} className="text-xs bg-gray-800 text-gray-400 px-1 rounded">
+            <span key={index} className="text-xs bg-gray-800 text-gray-400 px-1.5 py-0.5 rounded">
               {feature}
             </span>
           ))}
