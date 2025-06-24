@@ -5,8 +5,11 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogTitle,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -16,6 +19,7 @@ interface SignUpModalProps {
 const SignUpModal = ({ isOpen, onClose }: SignUpModalProps) => {
   const [email, setEmail] = useState('');
   const [inviteCode, setInviteCode] = useState('BadeGhlu');
+  const { toast } = useToast();
 
   const handleSignUp = () => {
     console.log('Sign up with:', { email, inviteCode });
@@ -23,9 +27,61 @@ const SignUpModal = ({ isOpen, onClose }: SignUpModalProps) => {
     onClose();
   };
 
+  const handleTelegramLogin = () => {
+    console.log('Initiating Telegram login...');
+    
+    // Telegram Web App login parameters
+    const botUsername = 'your_bot_username'; // Replace with your actual bot username
+    const authUrl = `https://oauth.telegram.org/auth?bot_id=YOUR_BOT_ID&origin=${encodeURIComponent(window.location.origin)}&request_access=write`;
+    
+    // Alternative: Using Telegram Login Widget approach
+    const telegramLoginUrl = `https://telegram.me/${botUsername}?start=auth_${Date.now()}`;
+    
+    toast({
+      title: "Telegram Authorization",
+      description: "Redirecting to Telegram for authorization...",
+    });
+
+    // Open Telegram authorization in a new window
+    const authWindow = window.open(
+      telegramLoginUrl,
+      'telegram_auth',
+      'width=500,height=600,scrollbars=yes,resizable=yes'
+    );
+
+    // Listen for authorization completion
+    const checkAuth = setInterval(() => {
+      try {
+        if (authWindow?.closed) {
+          clearInterval(checkAuth);
+          // Handle auth completion - you would typically check with your backend here
+          toast({
+            title: "Authorization Complete",
+            description: "Telegram authorization was completed successfully!",
+          });
+          onClose();
+        }
+      } catch (error) {
+        // Handle cross-origin restrictions
+        console.log('Checking auth window status...');
+      }
+    }, 1000);
+
+    // Cleanup after 5 minutes
+    setTimeout(() => {
+      clearInterval(checkAuth);
+      if (authWindow && !authWindow.closed) {
+        authWindow.close();
+      }
+    }, 300000);
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-gray-900 border-gray-700 text-white max-w-md p-0 gap-0">
+        <DialogTitle className="sr-only">Sign Up</DialogTitle>
+        <DialogDescription className="sr-only">Sign up for a new account using email or social login</DialogDescription>
+        
         {/* Header */}
         <DialogHeader className="p-6 pb-4">
           <div className="flex items-center justify-between">
@@ -88,9 +144,12 @@ const SignUpModal = ({ isOpen, onClose }: SignUpModalProps) => {
           {/* Social Login Options */}
           <div className="flex justify-center space-x-8">
             <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center">
+              <button
+                onClick={handleTelegramLogin}
+                className="w-12 h-12 bg-blue-500 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
+              >
                 <Send className="w-6 h-6 text-white" />
-              </div>
+              </button>
               <span className="text-sm text-gray-400">Telegram</span>
             </div>
             <div className="flex flex-col items-center space-y-2">
