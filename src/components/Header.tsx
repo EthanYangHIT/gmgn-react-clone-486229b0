@@ -9,8 +9,8 @@ const Header = () => {
       <div className="flex items-center justify-between px-4 py-2 text-sm">
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center">
-              <span className="text-black font-bold text-xs">🐸</span>
+            <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
+              <img src="/gmgn-logo.svg" alt="GMGN" className="w-4 h-4" />
             </div>
             <span className="text-white font-medium">SOL</span>
             <ChevronDown className="w-4 h-4 text-gray-400" />
@@ -41,8 +41,8 @@ const Header = () => {
       {/* Trenches 子导航 */}
       <div className="flex items-center justify-between px-4 py-3 bg-gray-900/50">
         <div className="flex items-center space-x-2">
-          <div className="w-5 h-5 bg-green-500 rounded flex items-center justify-center">
-            <span className="text-black text-xs">🐸</span>
+          <div className="w-5 h-5 bg-white rounded flex items-center justify-center">
+            <img src="/gmgn-logo.svg" alt="GMGN" className="w-3 h-3" />
           </div>
           <span className="text-white font-medium">Trenches</span>
           <ChevronDown className="w-4 h-4 text-gray-400" />
