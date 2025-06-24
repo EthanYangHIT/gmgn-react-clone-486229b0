@@ -1,95 +1,130 @@
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { TrendingUp, TrendingDown, DollarSign } from 'lucide-react';
+import React, { useState } from 'react';
+import { Box, VStack, HStack, Text, Button, Input, Select, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import { ArrowUpDown } from 'lucide-react';
 
 const TradingPanel = () => {
   const [amount, setAmount] = useState('');
-  const [selectedAction, setSelectedAction] = useState<'buy' | 'sell'>('buy');
+  const [selectedToken, setSelectedToken] = useState('SOL');
 
   return (
-    <div className="bg-gmgn-surface rounded-lg p-4 border border-gmgn-hover">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-white">快速交易</h3>
-        <DollarSign className="w-5 h-5 text-gmgn-green" />
-      </div>
+    <Box bg="gray.800" p={6} rounded="lg" border="1px solid" borderColor="gray.700">
+      <VStack spacing={6} align="stretch">
+        <Text fontSize="lg" fontWeight="semibold" color="white">
+          交易面板
+        </Text>
 
-      {/* 买卖切换 */}
-      <div className="flex space-x-2 mb-4">
-        <Button
-          variant={selectedAction === 'buy' ? 'default' : 'outline'}
-          onClick={() => setSelectedAction('buy')}
-          className={`flex-1 ${
-            selectedAction === 'buy'
-              ? 'bg-green-600 hover:bg-green-700 text-white'
-              : 'border-green-600 text-green-600 hover:bg-green-600 hover:text-white'
-          }`}
-        >
-          <TrendingUp className="w-4 h-4 mr-2" />
-          买入
-        </Button>
-        <Button
-          variant={selectedAction === 'sell' ? 'default' : 'outline'}
-          onClick={() => setSelectedAction('sell')}
-          className={`flex-1 ${
-            selectedAction === 'sell'
-              ? 'bg-red-600 hover:bg-red-700 text-white'
-              : 'border-red-600 text-red-600 hover:bg-red-600 hover:text-white'
-          }`}
-        >
-          <TrendingDown className="w-4 h-4 mr-2" />
-          卖出
-        </Button>
-      </div>
+        <Tabs variant="enclosed" colorScheme="green">
+          <TabList>
+            <Tab color="gray.400" _selected={{ color: 'white', bg: 'green.500' }}>买入</Tab>
+            <Tab color="gray.400" _selected={{ color: 'white', bg: 'red.500' }}>卖出</Tab>
+          </TabList>
 
-      {/* 金额输入 */}
-      <div className="mb-4">
-        <label className="block text-sm text-gray-400 mb-2">金额 (SOL)</label>
-        <Input
-          type="number"
-          placeholder="输入交易金额"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="bg-gmgn-dark border-gmgn-hover focus:border-gmgn-green text-white"
-        />
-      </div>
+          <TabPanels>
+            <TabPanel p={0} pt={4}>
+              <VStack spacing={4} align="stretch">
+                <VStack spacing={2} align="start">
+                  <Text fontSize="sm" color="gray.400">选择代币</Text>
+                  <Select
+                    value={selectedToken}
+                    onChange={(e) => setSelectedToken(e.target.value)}
+                    bg="gray.700"
+                    borderColor="gray.600"
+                    color="white"
+                  >
+                    <option value="SOL">SOL - Solana</option>
+                    <option value="BONK">BONK - Bonk</option>
+                    <option value="WIF">WIF - dogwifhat</option>
+                  </Select>
+                </VStack>
 
-      {/* 快捷金额 */}
-      <div className="grid grid-cols-4 gap-2 mb-4">
-        {['0.1', '0.5', '1', '5'].map((value) => (
-          <Button
-            key={value}
-            variant="outline"
-            size="sm"
-            onClick={() => setAmount(value)}
-            className="text-xs border-gmgn-hover text-gray-400 hover:bg-gmgn-hover hover:text-white"
-          >
-            {value}
-          </Button>
-        ))}
-      </div>
+                <VStack spacing={2} align="start">
+                  <Text fontSize="sm" color="gray.400">金额</Text>
+                  <Input
+                    placeholder="输入金额"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    bg="gray.700"
+                    borderColor="gray.600"
+                    color="white"
+                    _placeholder={{ color: 'gray.400' }}
+                  />
+                </VStack>
 
-      {/* 交易按钮 */}
-      <Button
-        className={`w-full font-semibold ${
-          selectedAction === 'buy'
-            ? 'bg-green-600 hover:bg-green-700'
-            : 'bg-red-600 hover:bg-red-700'
-        }`}
-        disabled={!amount}
-      >
-        {selectedAction === 'buy' ? '买入' : '卖出'} {amount && `${amount} SOL`}
-      </Button>
+                <HStack spacing={2}>
+                  <Button size="sm" variant="outline" borderColor="gray.600" color="white">
+                    25%
+                  </Button>
+                  <Button size="sm" variant="outline" borderColor="gray.600" color="white">
+                    50%
+                  </Button>
+                  <Button size="sm" variant="outline" borderColor="gray.600" color="white">
+                    75%
+                  </Button>
+                  <Button size="sm" variant="outline" borderColor="gray.600" color="white">
+                    MAX
+                  </Button>
+                </HStack>
 
-      {/* 滑点设置 */}
-      <div className="mt-4 pt-4 border-t border-gmgn-hover">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-400">滑点容忍度</span>
-          <span className="text-white">1%</span>
-        </div>
-      </div>
-    </div>
+                <Button
+                  w="full"
+                  bg="green.500"
+                  color="black"
+                  fontWeight="medium"
+                  _hover={{ bg: 'green.400' }}
+                  leftIcon={<ArrowUpDown size={16} />}
+                >
+                  买入 {selectedToken}
+                </Button>
+              </VStack>
+            </TabPanel>
+
+            <TabPanel p={0} pt={4}>
+              <VStack spacing={4} align="stretch">
+                <VStack spacing={2} align="start">
+                  <Text fontSize="sm" color="gray.400">选择代币</Text>
+                  <Select
+                    value={selectedToken}
+                    onChange={(e) => setSelectedToken(e.target.value)}
+                    bg="gray.700"
+                    borderColor="gray.600"
+                    color="white"
+                  >
+                    <option value="SOL">SOL - Solana</option>
+                    <option value="BONK">BONK - Bonk</option>
+                    <option value="WIF">WIF - dogwifhat</option>
+                  </Select>
+                </VStack>
+
+                <VStack spacing={2} align="start">
+                  <Text fontSize="sm" color="gray.400">数量</Text>
+                  <Input
+                    placeholder="输入数量"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    bg="gray.700"
+                    borderColor="gray.600"
+                    color="white"
+                    _placeholder={{ color: 'gray.400' }}
+                  />
+                </VStack>
+
+                <Button
+                  w="full"
+                  bg="red.500"
+                  color="white"
+                  fontWeight="medium"
+                  _hover={{ bg: 'red.400' }}
+                  leftIcon={<ArrowUpDown size={16} />}
+                >
+                  卖出 {selectedToken}
+                </Button>
+              </VStack>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </VStack>
+    </Box>
   );
 };
 
