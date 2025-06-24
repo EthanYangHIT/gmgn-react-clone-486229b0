@@ -13,16 +13,16 @@
 ```mermaid
 flowchart TD
     A[Header<br/>链选择<br/>平台选择<br/>Sign Up/Log In]:::header
-    B[主导航栏<br/>Trenches/New/Trending...]:::nav
+    B[主导航栏<br/>Trenches]:::nav
     C[Index Trenches 区域<br/>Token List/Token Card]:::main
-    D[CopyTrade 面板]:::panel
     E[My Wallet 钱包页]:::wallet
+    D[CopyTrade 面板]:::panel
 
     A -- 点击 Sign Up/Log In --> F[弹窗：Sign Up/Log In]
     A -- 选择链/平台 --> A
     B -- 点击 Trenches --> C
-    C -- 点击 CopyTrade --> D
     A -- 登录后点击 My Wallet --> E
+    E -- 点击 CopyTrade --> D
 
     classDef header fill:#e0f7fa,stroke:#00796b,stroke-width:2px;
     classDef nav fill:#fffde7,stroke:#fbc02d,stroke-width:2px;
