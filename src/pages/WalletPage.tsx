@@ -1,4 +1,3 @@
-
 import {
   Box,
   Container,
@@ -12,150 +11,259 @@ import {
   Badge,
   Divider,
   useColorModeValue,
+  Avatar,
+  IconButton,
+  Input,
+  Center,
+  Tabs,
+  TabList,
+  TabPanels,
+  TabPanel,
+  Tab,
+  useDisclosure,
+  List,
+  ListItem,
+  ListIcon,
 } from '@chakra-ui/react'
-import { Copy, ExternalLink, TrendingUp, TrendingDown } from 'lucide-react'
+import { Copy, ExternalLink, TrendingUp, TrendingDown, Share2, RefreshCw, UserPlus, Twitter, CheckCircle, Circle } from 'lucide-react'
+import CloseIcon from "../images/nodata.svg?react";
+import { useState } from 'react'
+import CopyTradeDrawer from '@/components/CopyTradeDrawer';
+import avatarPng from "/images/avatar.png";
+
+const tabs = ["7D PnL", "Profit", "Distribution"]
+const timeTabs = ["1d", "7d", "30d", "All"]
+
+const bottomTabs = [
+  { label: 'Recent PnL', key: 'recent' },
+  { label: 'Holdings', key: 'holdings' },
+  { label: 'Activity', key: 'activity' },
+  { label: 'Deployed Tokens', key: 'deployed' },
+];
 
 const WalletPage = () => {
   const bgColor = useColorModeValue('gray.900', 'gray.900')
   const cardBg = useColorModeValue('gray.800', 'gray.800')
   const borderColor = useColorModeValue('gray.700', 'gray.700')
+  const [activeTab, setActiveTab] = useState("7D PnL")
+  const [activeTime, setActiveTime] = useState("7d")
+  const [activeBottomTab, setActiveBottomTab] = useState('recent');
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box bg={bgColor} minH="100vh" color="white">
-      <Container maxW="7xl" py={8}>
-        <VStack spacing={8} align="stretch">
-          {/* 钱包信息头部 */}
-          <Box bg={cardBg} p={6} rounded="lg" border="1px solid" borderColor={borderColor}>
-            <VStack spacing={4} align="start">
-              <HStack justify="space-between" w="full">
-                <VStack align="start" spacing={1}>
-                  <Text fontSize="sm" color="gray.400">钱包地址</Text>
-                  <HStack spacing={2}>
-                    <Text fontFamily="mono" fontSize="lg">
-                      7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU
-                    </Text>
-                    <Button size="sm" variant="ghost" color="gray.400">
-                      <Copy size={16} />
-                    </Button>
-                    <Button size="sm" variant="ghost" color="gray.400">
-                      <ExternalLink size={16} />
-                    </Button>
-                  </HStack>
-                </VStack>
-                <Badge colorScheme="green" px={3} py={1} rounded="full">
-                  活跃
-                </Badge>
+    <Box minH="100vh" color="white">
+      <Container maxW="7xl" p="12px">
+        <VStack spacing={"12px"} align="stretch">
+          {/* 头像、昵称、地址、Add Twitter、Copy trade */}
+          <Flex align="center" justify="space-between">
+            <HStack spacing={3} align="center">
+              <Avatar size="lg" name="FqBMib" />
+              <VStack align="flex-start" spacing={0}>
+                <HStack spacing={0}>
+                  <Text color="white" fontWeight="bold" fontSize="14px">FqBMi...8ak</Text>
+                  <IconButton aria-label="edit" icon={<RefreshCw size={14} />} size="xs" variant="ghost" colorScheme="gray" />
+                  <IconButton aria-label="share" icon={<Share2 size={14} />} size="xs" variant="ghost" colorScheme="gray" />
+                  <IconButton aria-label="refresh" icon={<RefreshCw size={14} />} size="xs" variant="ghost" colorScheme="gray" />
+                </HStack>
+                <HStack spacing={1}>
+                  <Text color="gray.400" fontSize="12px">FqBMib</Text>
+                  <IconButton aria-label="copy" icon={<Copy size={14} />} size="xs" variant="ghost" colorScheme="gray" />
+                </HStack>
+                <Button leftIcon={<Twitter size={16} />} size="xs" bgGradient="linear(to-r, #7EDFA3, #3E9AEF)" color="black" borderRadius="full" px={3} h="22px" fontSize="12px" mt={1}>
+                  Add Twitter
+                </Button>
+              </VStack>
+            </HStack>
+            <HStack spacing={2}>
+              <Button leftIcon={<Copy size={16} />} bg="#23242A" color="white" borderRadius="full" px={4} h="36px" fontWeight="bold" fontSize="14px" onClick={onOpen}>
+                Copy trade
+              </Button>
+              <IconButton aria-label="add-user" icon={<UserPlus size={20} />} bg="#23242A" borderRadius="full" w="36px" h="36px" />
+            </HStack>
+          </Flex>
+
+          {/* Tabs */}
+          <Flex justify="space-between" align="center">
+            <HStack spacing={1}>
+              {tabs.map(tab => (
+                <Button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  bg={activeTab === tab ? '#23242A' : 'transparent'}
+                  color={activeTab === tab ? 'white' : 'gray.400'}
+                  fontWeight="normal"
+                  borderRadius="10px"
+                  px={1.5}
+                  h="36px"
+                  fontSize="12px"
+                >
+                  {tab}
+                </Button>
+              ))}
+            </HStack>
+            <HStack spacing={1}>
+              {timeTabs.map(tab => (
+                <Button
+                  key={tab}
+                  onClick={() => setActiveTime(tab)}
+                  bg={activeTime === tab ? '#23242A' : 'transparent'}
+                  color={activeTime === tab ? 'white' : 'gray.400'}
+                  fontWeight="normal"
+                  borderRadius="8px"
+                  px={2}
+                  h="28px"
+                  fontSize="12px"
+                >
+                  {tab}
+                </Button>
+              ))}
+            </HStack>
+          </Flex>
+
+          {/* 7D Realized PnL 卡片 */}
+          <Box bg="#18191B" borderRadius="16px" p={"16px"}>
+            <Flex justify="space-between" align="center" mb={2}>
+              <HStack>
+                <Text color="white" fontWeight="bold" fontSize="14px">7D Realized PnL</Text>
+                <RefreshCw size={16} color="#888" />
+                <Text color="gray.400" fontSize="12px">USD</Text>
+              </HStack>
+              <Text color="white" fontWeight="bold" fontSize="14px">Win Rate</Text>
+            </Flex>
+            <Flex justify="space-between" align="flex-end" alignItems="flex-end">
+              <VStack align="flex-start" spacing={0}>
+                <Text color="white" fontWeight="bold" fontSize="14px">0%</Text>
+                <Text color="gray.400" fontSize="12px">$0</Text>
+              </VStack>
+              <VStack align="flex-end" spacing={0}>
+                <Text color="white" fontWeight="bold" fontSize="14px">0%</Text>
+                <Text color="gray.400" fontSize="12px">$0 (--)</Text>
+              </VStack>
+            </Flex>
+            <HStack mt={4} spacing={8}>
+              <VStack align="flex-start" spacing={0}>
+                <Text color="gray.400" fontSize="12px">Total PnL</Text>
+                <Text color="gray.400" fontSize="12px">Unrealized Profits</Text>
+              </VStack>
+              <VStack align="flex-end" spacing={0} flex={1} alignSelf="flex-end">
+                <Text color="gray.400" fontSize="12px">$0</Text>
+                <Text color="gray.400" fontSize="12px">$0</Text>
+              </VStack>
+            </HStack>
+            <Box borderBottom="1px dashed" borderColor="#23242A" mt={8} />
+          </Box>
+
+          {/* Phishing check 区块 */}
+          <Box bg="#18191B" borderRadius="16px" p="16px">
+            <HStack mb={3}>
+              <Text color="white" fontWeight="bold" fontSize="14px">
+                <span role="img" aria-label="phishing">
+                  🐦
+                </span>{" "}
+                Phishing check
+              </Text>
+            </HStack>
+            <VStack align="flex-start" spacing={2}>
+              <HStack>
+                <Circle size={16} color="#2ED573" fill="#2ED573" />
+                <Text color="white" fontSize="12px">
+                  Blacklist: 0 (0%)
+                </Text>
+              </HStack>
+              <HStack>
+                <Circle size={16} color="#2ED573" fill="#2ED573" />
+                <Text color="white" fontSize="12px">
+                  Didn't buy: 0 (0%)
+                </Text>
+              </HStack>
+              <HStack>
+                <Circle size={16} color="#2ED573" fill="#2ED573" />
+                <Text color="white" fontSize="12px">
+                  Sold {">"} Bought: 0 (0%)
+                </Text>
+              </HStack>
+              <HStack>
+                <Circle size={16} color="#2ED573" fill="#2ED573" />
+                <Text color="white" fontSize="12px">
+                  Buy/Sell within 5 secs: 0 (0%)
+                </Text>
               </HStack>
             </VStack>
           </Box>
 
-          {/* 统计卡片 */}
-          <Grid templateColumns="repeat(auto-fit, minmax(250px, 1fr))" gap={6}>
-            <GridItem>
-              <Box bg={cardBg} p={6} rounded="lg" border="1px solid" borderColor={borderColor}>
-                <VStack align="start" spacing={3}>
-                  <Text color="gray.400" fontSize="sm">总资产价值</Text>
-                  <Text fontSize="2xl" fontWeight="bold">$12,345.67</Text>
-                  <HStack spacing={2}>
-                    <TrendingUp size={16} color="green" />
-                    <Text color="green.400" fontSize="sm">+5.2%</Text>
-                    <Text color="gray.500" fontSize="sm">24h</Text>
-                  </HStack>
-                </VStack>
-              </Box>
-            </GridItem>
-
-            <GridItem>
-              <Box bg={cardBg} p={6} rounded="lg" border="1px solid" borderColor={borderColor}>
-                <VStack align="start" spacing={3}>
-                  <Text color="gray.400" fontSize="sm">总盈亏</Text>
-                  <Text fontSize="2xl" fontWeight="bold" color="green.400">+$2,134.56</Text>
-                  <HStack spacing={2}>
-                    <TrendingUp size={16} color="green" />
-                    <Text color="green.400" fontSize="sm">+17.8%</Text>
-                    <Text color="gray.500" fontSize="sm">总收益率</Text>
-                  </HStack>
-                </VStack>
-              </Box>
-            </GridItem>
-
-            <GridItem>
-              <Box bg={cardBg} p={6} rounded="lg" border="1px solid" borderColor={borderColor}>
-                <VStack align="start" spacing={3}>
-                  <Text color="gray.400" fontSize="sm">持有代币数</Text>
-                  <Text fontSize="2xl" fontWeight="bold">28</Text>
-                  <HStack spacing={2}>
-                    <Text color="blue.400" fontSize="sm">12 profitable</Text>
-                    <Text color="red.400" fontSize="sm">16 loss</Text>
-                  </HStack>
-                </VStack>
-              </Box>
-            </GridItem>
-
-            <GridItem>
-              <Box bg={cardBg} p={6} rounded="lg" border="1px solid" borderColor={borderColor}>
-                <VStack align="start" spacing={3}>
-                  <Text color="gray.400" fontSize="sm">交易次数</Text>
-                  <Text fontSize="2xl" fontWeight="bold">156</Text>
-                  <HStack spacing={2}>
-                    <Text color="gray.400" fontSize="sm">本月</Text>
-                    <Text color="green.400" fontSize="sm">+12</Text>
-                  </HStack>
-                </VStack>
-              </Box>
-            </GridItem>
-          </Grid>
-
-          {/* 持仓列表 */}
-          <Box bg={cardBg} rounded="lg" border="1px solid" borderColor={borderColor}>
-            <VStack spacing={0} align="stretch">
-              <Flex justify="space-between" align="center" p={6} borderBottom="1px solid" borderColor={borderColor}>
-                <Text fontSize="lg" fontWeight="semibold">持仓代币</Text>
-                <Button size="sm" variant="outline" borderColor="gray.600">
-                  查看全部
+          {/* Holdings/PnL Section */}
+          <Box>
+            <HStack spacing={1} mb={4}>
+              {bottomTabs.map(tab => (
+                <Button
+                  key={tab.key}
+                  onClick={() => setActiveBottomTab(tab.key)}
+                  bg={activeBottomTab === tab.key ? '#23242A' : 'transparent'}
+                  color={activeBottomTab === tab.key ? 'white' : 'gray.400'}
+                  fontWeight="normal"
+                  borderRadius="10px"
+                  px={3}
+                  h="32px"
+                  fontSize="13px"
+                  minW="unset"
+                  _hover={{ bg: activeBottomTab === tab.key ? '#23242A' : '#23242A33' }}
+                >
+                  {tab.label}
                 </Button>
-              </Flex>
-              
-              {/* 表头 */}
-              <Grid templateColumns="2fr 1fr 1fr 1fr 1fr 1fr" gap={4} p={4} bg="gray.700/30" fontSize="sm" color="gray.400">
-                <Text>代币</Text>
-                <Text textAlign="right">持有量</Text>
-                <Text textAlign="right">价值</Text>
-                <Text textAlign="right">成本</Text>
-                <Text textAlign="right">盈亏</Text>
-                <Text textAlign="right">24h变化</Text>
-              </Grid>
-
-              {/* 代币行 */}
-              {[
-                { symbol: 'SOL', name: 'Solana', amount: '12.34', value: '$2,456.78', cost: '$2,100.00', pnl: '+$356.78', change: '+12.5%', positive: true },
-                { symbol: 'BONK', name: 'Bonk', amount: '1,234,567', value: '$892.34', cost: '$1,200.00', pnl: '-$307.66', change: '-8.2%', positive: false },
-                { symbol: 'WIF', name: 'dogwifhat', amount: '456.78', value: '$1,234.56', cost: '$800.00', pnl: '+$434.56', change: '+5.8%', positive: true },
-              ].map((token, index) => (
-                <Box key={index}>
-                  <Grid templateColumns="2fr 1fr 1fr 1fr 1fr 1fr" gap={4} p={4} fontSize="sm" _hover={{ bg: 'gray.700/20' }}>
-                    <VStack align="start" spacing={1}>
-                      <Text fontWeight="medium">{token.symbol}</Text>
-                      <Text color="gray.400" fontSize="xs">{token.name}</Text>
-                    </VStack>
-                    <Text textAlign="right">{token.amount}</Text>
-                    <Text textAlign="right" fontWeight="medium">{token.value}</Text>
-                    <Text textAlign="right" color="gray.400">{token.cost}</Text>
-                    <Text textAlign="right" color={token.positive ? 'green.400' : 'red.400'} fontWeight="medium">
-                      {token.pnl}
-                    </Text>
-                    <HStack justify="flex-end" spacing={1}>
-                      {token.positive ? <TrendingUp size={14} color="green" /> : <TrendingDown size={14} color="red" />}
-                      <Text color={token.positive ? 'green.400' : 'red.400'}>{token.change}</Text>
-                    </HStack>
-                  </Grid>
-                  {index < 2 && <Divider borderColor={borderColor} />}
-                </Box>
               ))}
-            </VStack>
+            </HStack>
+            {/* 内容区 */}
+            {activeBottomTab === 'recent' && (
+              <>
+                <Flex
+                  justify="space-between"
+                  color="gray.400"
+                  fontSize="12px"
+                  py="10px"
+                  borderBottom="1px solid #2D2D2F"
+                >
+                  <Text>Token / Last Active</Text>
+                  <HStack spacing="12">
+                    <Text>Balance</Text>
+                    <Text>USD ($)</Text>
+                    <Text>Position %</Text>
+                    <Text>Holding Duration</Text>
+                    <Text>P/L</Text>
+                  </HStack>
+                </Flex>
+                <VStack py="20" spacing="4">
+                  <CloseIcon />
+                  <Text color="gray.500" fontSize="14px">
+                    No buying or selling in the last 30 days.
+                  </Text>
+                </VStack>
+              </>
+            )}
+            {activeBottomTab === 'holdings' && (
+              <VStack py="20" spacing="4">
+                <Text color="gray.500" fontSize="14px">
+                  No holdings.
+                </Text>
+              </VStack>
+            )}
+            {activeBottomTab === 'activity' && (
+              <VStack py="20" spacing="4">
+                <Text color="gray.500" fontSize="14px">
+                  No activity.
+                </Text>
+              </VStack>
+            )}
+            {activeBottomTab === 'deployed' && (
+              <VStack py="20" spacing="4">
+                <Text color="gray.500" fontSize="14px">
+                  No deployed tokens.
+                </Text>
+              </VStack>
+            )}
           </Box>
         </VStack>
       </Container>
+      <CopyTradeDrawer isOpen={isOpen} onClose={onClose} />
     </Box>
   )
 }

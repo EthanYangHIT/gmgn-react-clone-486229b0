@@ -4,6 +4,55 @@
 
 **URL**: https://lovable.dev/projects/08905382-2c56-4467-93de-25238db23876
 
+## Project Description
+
+当前实现的 UI 内容包括 index 页面中的 Trenches 部分。
+
+## UI 线框图与交互点说明
+
+```mermaid
+flowchart TD
+    A[Header<br/>链选择<br/>平台选择<br/>Sign Up/Log In]:::header
+    B[主导航栏<br/>Trenches/New/Trending...]:::nav
+    C[Index Trenches 区域<br/>Token List/Token Card]:::main
+    D[CopyTrade 面板]:::panel
+    E[My Wallet 钱包页]:::wallet
+
+    A -- 点击 Sign Up/Log In --> F[弹窗：Sign Up/Log In]
+    A -- 选择链/平台 --> A
+    B -- 点击 Trenches --> C
+    C -- 点击 CopyTrade --> D
+    A -- 登录后点击 My Wallet --> E
+
+    classDef header fill:#e0f7fa,stroke:#00796b,stroke-width:2px;
+    classDef nav fill:#fffde7,stroke:#fbc02d,stroke-width:2px;
+    classDef main fill:#e8f5e9,stroke:#388e3c,stroke-width:2px;
+    classDef panel fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px;
+    classDef wallet fill:#fbe9e7,stroke:#d84315,stroke-width:2px;
+```
+
+**交互点说明：**
+- Header：链选择、平台选择、Search、Sign Up/Log In 按钮
+- 主导航栏：Trenches
+- Index Trenches 区域：Token 列表、Token 卡片
+- CopyTrade 面板：仅实现 Copy Sell 与 No Sell
+- My Wallet 钱包页：查看钱包状态
+
+时间有限，其余 ui/ux 暂未实现
+
+### Deploy
+
+1. 构建项目：
+
+```bash
+npm run build
+```
+
+2. 部署
+```bash
+npm run deploy
+```
+
 ## How can I edit this code?
 
 There are several ways of editing your application.
