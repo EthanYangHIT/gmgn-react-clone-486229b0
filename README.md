@@ -6,9 +6,7 @@
 
 ## Project Description
 
-当前实现的 UI 内容包括 index 页面中的 Trenches 部分。
-
-## UI 线框图与交互点说明
+## 用户旅程图
 
 ```mermaid
 flowchart TD
@@ -37,6 +35,13 @@ flowchart TD
 - Index Trenches 区域：Token 列表、Token 卡片
 - CopyTrade 面板：仅实现 Copy Sell 与 No Sell
 - My Wallet 钱包页：查看钱包状态
+
+## UX 示例
+![index](public/ux.jpg)
+![signUp](public/ux_1.jpg)
+![wallet](public/ux_2.jpg)
+![wallet manage](public/ux_3.jpg)
+![copyTrade](public/ux_4.jpg)
 
 时间有限，其余 ui/ux 暂未实现
 
