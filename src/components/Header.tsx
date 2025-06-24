@@ -28,48 +28,39 @@ const Header = () => {
                   <img src="/gmgn-logo.svg" alt="GMGN" className="w-5 h-5" />
                 </div>
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center space-x-1 text-white font-medium hover:text-gray-300 transition-colors border border-gray-600 rounded px-3 py-1">
+                  <DropdownMenuTrigger className="flex items-center space-x-2 text-white font-medium hover:text-gray-300 transition-colors border border-gray-600 rounded px-3 py-1">
+                    <img src="/images/solana-logo.png" alt="Solana" className="w-4 h-4" />
                     <span>SOL</span>
                     <ChevronDown className="w-4 h-4 text-gray-400" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="bg-gray-800 border-gray-700 min-w-[120px]" align="start">
                     <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                       <div className="flex items-center space-x-2">
-                        <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">S</span>
-                        </div>
+                        <img src="/images/solana-logo.png" alt="Solana" className="w-5 h-5" />
                         <span>SOL</span>
                       </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                       <div className="flex items-center space-x-2">
-                        <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">E</span>
-                        </div>
+                        <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum" className="w-5 h-5" />
                         <span>ETH</span>
                       </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                       <div className="flex items-center space-x-2">
-                        <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">B</span>
-                        </div>
+                        <img src="https://cryptologos.cc/logos/coinbase-coin-logo.png" alt="Base" className="w-5 h-5" />
                         <span>Base</span>
                       </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                       <div className="flex items-center space-x-2">
-                        <div className="w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">B</span>
-                        </div>
+                        <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BSC" className="w-5 h-5" />
                         <span>BSC</span>
                       </div>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                       <div className="flex items-center space-x-2">
-                        <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs font-bold">T</span>
-                        </div>
+                        <img src="https://cryptologos.cc/logos/tron-trx-logo.png" alt="Tron" className="w-5 h-5" />
                         <span>Tron</span>
                       </div>
                     </DropdownMenuItem>
@@ -122,48 +113,39 @@ const Header = () => {
               <img src="/gmgn-logo.svg" alt="GMGN" className="w-4 h-4" />
             </div>
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center space-x-1 text-white font-medium hover:text-gray-300 transition-colors">
+              <DropdownMenuTrigger className="flex items-center space-x-2 text-white font-medium hover:text-gray-300 transition-colors">
+                <img src="/images/solana-logo.png" alt="Solana" className="w-4 h-4" />
                 <span>SOL</span>
                 <ChevronDown className="w-4 h-4 text-gray-400" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-gray-800 border-gray-700 min-w-[120px]" align="start">
                 <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                   <div className="flex items-center space-x-2">
-                    <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">S</span>
-                    </div>
+                    <img src="/images/solana-logo.png" alt="Solana" className="w-5 h-5" />
                     <span>SOL</span>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                   <div className="flex items-center space-x-2">
-                    <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">E</span>
-                    </div>
+                    <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum" className="w-5 h-5" />
                     <span>ETH</span>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                   <div className="flex items-center space-x-2">
-                    <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">B</span>
-                    </div>
+                    <img src="https://cryptologos.cc/logos/coinbase-coin-logo.png" alt="Base" className="w-5 h-5" />
                     <span>Base</span>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                   <div className="flex items-center space-x-2">
-                    <div className="w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">B</span>
-                    </div>
+                    <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BSC" className="w-5 h-5" />
                     <span>BSC</span>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
                   <div className="flex items-center space-x-2">
-                    <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">T</span>
-                    </div>
+                    <img src="https://cryptologos.cc/logos/tron-trx-logo.png" alt="Tron" className="w-5 h-5" />
                     <span>Tron</span>
                   </div>
                 </DropdownMenuItem>
