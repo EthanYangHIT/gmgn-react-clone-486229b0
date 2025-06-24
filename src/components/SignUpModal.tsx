@@ -76,6 +76,63 @@ const SignUpModal = ({ isOpen, onClose }: SignUpModalProps) => {
     }, 300000);
   };
 
+  const handlePhantomLogin = async () => {
+    console.log('Initiating Phantom wallet connection...');
+    
+    try {
+      // Check if Phantom is installed
+      const isPhantomInstalled = window.solana && window.solana.isPhantom;
+      
+      if (!isPhantomInstalled) {
+        toast({
+          title: "Phantom Not Installed",
+          description: "Please install Phantom wallet extension first.",
+        });
+        
+        // Redirect to Phantom installation page
+        window.open('https://phantom.app/download', '_blank');
+        return;
+      }
+
+      toast({
+        title: "Connecting to Phantom...",
+        description: "Please approve the connection in your Phantom wallet.",
+      });
+
+      // Request connection to Phantom wallet
+      const response = await window.solana.connect();
+      
+      if (response.publicKey) {
+        const publicKey = response.publicKey.toString();
+        console.log('Connected to Phantom wallet:', publicKey);
+        
+        toast({
+          title: "Wallet Connected!",
+          description: `Connected to ${publicKey.slice(0, 8)}...${publicKey.slice(-8)}`,
+        });
+        
+        // Handle successful wallet connection - you would typically send this to your backend
+        // For now, we'll just close the modal
+        onClose();
+      }
+    } catch (error) {
+      console.error('Phantom connection error:', error);
+      
+      if (error.code === 4001) {
+        // User rejected the connection
+        toast({
+          title: "Connection Cancelled",
+          description: "Wallet connection was cancelled by user.",
+        });
+      } else {
+        toast({
+          title: "Connection Failed",
+          description: "Failed to connect to Phantom wallet. Please try again.",
+        });
+      }
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-gray-900 border-gray-700 text-white max-w-md p-0 gap-0">
@@ -153,9 +210,12 @@ const SignUpModal = ({ isOpen, onClose }: SignUpModalProps) => {
               <span className="text-sm text-gray-400">Telegram</span>
             </div>
             <div className="flex flex-col items-center space-y-2">
-              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center">
+              <button
+                onClick={handlePhantomLogin}
+                className="w-12 h-12 bg-purple-500 hover:bg-purple-600 rounded-lg flex items-center justify-center transition-colors"
+              >
                 <MessageCircle className="w-6 h-6 text-white" />
-              </div>
+              </button>
               <span className="text-sm text-gray-400">Phantom</span>
             </div>
           </div>
