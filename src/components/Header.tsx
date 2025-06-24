@@ -1,4 +1,5 @@
 
+
 import { Search, Settings, MoreHorizontal, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -79,15 +80,17 @@ const Header = () => {
         </div>
       </div>
 
-      {/* 导航标签 */}
-      <div className="flex items-center px-4 py-2 space-x-6 text-sm border-b border-gray-800">
-        <span className="text-white font-medium">Trenches</span>
-        <span className="text-gray-400">New</span>
-        <span className="text-gray-400">Trending</span>
-        <span className="text-gray-400">CopyTrade</span>
-        <span className="text-gray-400">Monitor</span>
-        <span className="text-gray-400">Track</span>
-        <span className="text-gray-400">Hold</span>
+      {/* 导航标签 - 添加横向滚动 */}
+      <div className="overflow-x-auto scrollbar-hide border-b border-gray-800">
+        <div className="flex items-center px-4 py-2 space-x-6 text-sm min-w-max">
+          <span className="text-white font-medium whitespace-nowrap">Trenches</span>
+          <span className="text-gray-400 whitespace-nowrap">New</span>
+          <span className="text-gray-400 whitespace-nowrap">Trending</span>
+          <span className="text-gray-400 whitespace-nowrap">CopyTrade</span>
+          <span className="text-gray-400 whitespace-nowrap">Monitor</span>
+          <span className="text-gray-400 whitespace-nowrap">Track</span>
+          <span className="text-gray-400 whitespace-nowrap">Hold</span>
+        </div>
       </div>
 
       {/* Trenches 子导航 */}
@@ -135,3 +138,4 @@ const Header = () => {
 };
 
 export default Header;
+
