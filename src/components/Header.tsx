@@ -1,6 +1,11 @@
-
 import { Search, Settings, MoreHorizontal, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   return (
@@ -12,8 +17,54 @@ const Header = () => {
             <div className="w-6 h-6 rounded flex items-center justify-center">
               <img src="/gmgn-logo.svg" alt="GMGN" className="w-4 h-4" />
             </div>
-            <span className="text-white font-medium">SOL</span>
-            <ChevronDown className="w-4 h-4 text-gray-400" />
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center space-x-1 text-white font-medium hover:text-gray-300 transition-colors">
+                <span>SOL</span>
+                <ChevronDown className="w-4 h-4 text-gray-400" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-gray-800 border-gray-700 min-w-[120px]" align="start">
+                <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">S</span>
+                    </div>
+                    <span>SOL</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">E</span>
+                    </div>
+                    <span>ETH</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">B</span>
+                    </div>
+                    <span>Base</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">B</span>
+                    </div>
+                    <span>BSC</span>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="text-white hover:bg-gray-700 focus:bg-gray-700 cursor-pointer">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">T</span>
+                    </div>
+                    <span>Tron</span>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           <div className="flex items-center space-x-2 text-gray-400">
             <Search className="w-4 h-4" />
